@@ -53,15 +53,21 @@ describe('Monoid', function () {
     expect(reduce(Object, [{first: 'Charles'}, {last: 'Lowell'}])).to.deep.equal({first: 'Charles', last: 'Lowell'});
   });
 
+  let Sum = Monoid.create(class Sum {
+    empty() { return 0; }
+    append(a, b) {
+      return a + b;
+    }
+  });
+
   it('Allows you to define one-off monoids for convenience', function() {
-    let Sum = Monoid.create(class Sum {
-      empty() { return 0; }
-      append(a, b) {
-        return a + b;
-      }
-    });
     expect(Sum.reduce([1,2,3,4])).to.equal(10);
   });
+
+  it('Same monoid can be used for an array and an objects', function() {
+    expect(Sum.reduce({"a": 1, "b": 2, "c": 3, "d": 4})).to.equal(10);
+  });
+
 });
 
 describe('Foldable', function() {
