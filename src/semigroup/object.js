@@ -1,5 +1,5 @@
 import { Semigroup } from '../semigroup';
-import propertiesOf from 'object.getownpropertydescriptors';
+import { propertiesOf } from '../utils';
 
 const { assign, getPrototypeOf } = Object;
 

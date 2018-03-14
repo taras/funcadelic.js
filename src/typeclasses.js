@@ -1,4 +1,5 @@
-import getOwnPropertyDescriptors from 'object.getownpropertydescriptors';
+import { propertiesOf } from './utils';
+
 const { assign, keys } = Object;
 
 export function type(Class) {
@@ -25,7 +26,8 @@ export function type(Class) {
 
   Class.symbol = symbol;
 
-  let properties = getOwnPropertyDescriptors(Class.prototype);
+  let properties = propertiesOf(Class.prototype);
+
   keys(properties).filter(key => key != 'constructor').forEach(key => {
     Class.prototype[key] = Class.prototype[key].bind(Class.for);
   });
