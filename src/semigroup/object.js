@@ -1,11 +1,12 @@
 import { Semigroup } from '../semigroup';
 import { propertiesOf } from '../utils';
+import stable from '../stable';
 
 const { assign, getPrototypeOf } = Object;
 
 Semigroup.instance(Object, {
-  append(o1, o2) {
+  append: stable(function append(o1, o2) {
     let properties = assign({}, propertiesOf(o1), propertiesOf(o2));
     return Object.create(getPrototypeOf(o1), properties);
-  }
+  })
 });
